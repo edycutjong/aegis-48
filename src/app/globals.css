@@ -1,0 +1,268 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   AEGIS-48 DESIGN SYSTEM
+   Military-Grade Cybersecurity Terminal
+   ============================================ */
+
+/* ============================================
+   CUSTOM THEME - Tailwind v4
+   ============================================ */
+@theme {
+  --color-bg: #0a0a0b;
+  --color-surface: #141418;
+  --color-surface-elevated: #1e1e24;
+  --color-border: #2c2c2e;
+  --color-border-bright: #3a3a3c;
+
+  --color-critical: #ff2d55;
+  --color-critical-glow: #ff2d5540;
+  --color-high: #ff6b35;
+  --color-medium: #ffb800;
+  --color-low: #5a9cf5;
+  --color-safe: #00e676;
+  --color-safe-glow: #00e67640;
+
+  --color-primary: #7c5cfc;
+  --color-primary-glow: #9f85ff;
+  --color-ai: #00c8ff;
+
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #8e8e93;
+  --color-text-muted: #48484a;
+
+  --color-code-bg: #1a1a20;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   SCAN-LINE OVERLAY
+   ============================================ */
+.scan-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* ============================================
+   VERDICT FLASH ANIMATIONS
+   ============================================ */
+@keyframes verdict-flash-red {
+  0% { background-color: transparent; }
+  15% { background-color: rgba(255, 45, 85, 0.25); }
+  100% { background-color: transparent; }
+}
+
+@keyframes verdict-flash-green {
+  0% { background-color: transparent; }
+  15% { background-color: rgba(0, 230, 118, 0.2); }
+  100% { background-color: transparent; }
+}
+
+@keyframes verdict-flash-amber {
+  0% { background-color: transparent; }
+  15% { background-color: rgba(255, 184, 0, 0.15); }
+  100% { background-color: transparent; }
+}
+
+.flash-critical {
+  animation: verdict-flash-red 800ms ease-out;
+}
+
+.flash-safe {
+  animation: verdict-flash-green 800ms ease-out;
+}
+
+.flash-medium {
+  animation: verdict-flash-amber 800ms ease-out;
+}
+
+/* ============================================
+   GLASSMORPHISM
+   ============================================ */
+.glass {
+  background: rgba(20, 20, 24, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+}
+
+.glass-elevated {
+  background: rgba(30, 30, 36, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border-bright);
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.glow-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(124, 92, 252, 0.3), 0 0 60px rgba(124, 92, 252, 0.1);
+}
+
+.glow-critical {
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.3), 0 0 60px rgba(255, 45, 85, 0.1);
+}
+
+.glow-safe {
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.3), 0 0 60px rgba(0, 230, 118, 0.1);
+}
+
+/* ============================================
+   SONAR / SCAN ANIMATION
+   ============================================ */
+@keyframes sonar-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.sonar-ring {
+  animation: sonar-ring 2s ease-out infinite;
+}
+
+.sonar-ring:nth-child(2) { animation-delay: 0.5s; }
+.sonar-ring:nth-child(3) { animation-delay: 1s; }
+.sonar-ring:nth-child(4) { animation-delay: 1.5s; }
+
+/* ============================================
+   THREAT GAUGE
+   ============================================ */
+@keyframes gauge-fill {
+  from { stroke-dashoffset: 283; }
+}
+
+.gauge-circle {
+  animation: gauge-fill 1.2s ease-out forwards;
+}
+
+/* ============================================
+   CODE VIEWER
+   ============================================ */
+.code-line-critical {
+  background: rgba(255, 45, 85, 0.08);
+  border-left: 3px solid var(--color-critical);
+}
+
+.code-line-high {
+  background: rgba(255, 107, 53, 0.08);
+  border-left: 3px solid var(--color-high);
+}
+
+.code-line-medium {
+  background: rgba(255, 184, 0, 0.08);
+  border-left: 3px solid var(--color-medium);
+}
+
+/* ============================================
+   COUNT-UP ANIMATION
+   ============================================ */
+@keyframes count-up-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.count-up {
+  animation: count-up-appear 600ms ease-out forwards;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-bright);
+}
+
+/* ============================================
+   SCREEN SHAKE (for CRITICAL reveals)
+   ============================================ */
+@keyframes screen-shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px); }
+  30% { transform: translateX(2px); }
+  50% { transform: translateX(-1px); }
+  70% { transform: translateX(1px); }
+}
+
+.screen-shake {
+  animation: screen-shake 200ms ease-in-out;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
