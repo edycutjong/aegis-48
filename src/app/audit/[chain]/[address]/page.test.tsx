@@ -37,6 +37,16 @@ describe('Audit Report Page', () => {
     expect(getByText('Audit Not Found')).toBeInTheDocument();
   });
 
+  it('renders "Audit Not Found" when chain is unknown and report is missing', () => {
+    (useParams as jest.Mock).mockReturnValue({
+      chain: 'unknown-chain',
+      address: '0xinvalid-too',
+    });
+
+    const { getByText } = render(<AuditReportPage />);
+    expect(getByText('Audit Not Found')).toBeInTheDocument();
+  });
+
   it('renders vulnerable contract correctly and handles vulnerability selection', () => {
     const vulnContract = DEMO_CONTRACTS[0]; // Vulnerable target
     (useParams as jest.Mock).mockReturnValue({

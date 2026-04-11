@@ -28,7 +28,6 @@ export default function AuditReportPage() {
   const [mintStatus, setMintStatus] = useState<'idle' | 'minting' | 'success'>('idle');
 
   const handleMint = useCallback(() => {
-    if (mintStatus !== 'idle') return;
     setMintStatus('minting');
     
     // Mock a blockchain transaction delay
@@ -39,8 +38,8 @@ export default function AuditReportPage() {
 
   // Look up the demo contract
   const demo = getDemoContract(address);
-  const report: AuditReport | null = demo?.report || null;
-  const chainInfo = getChain(chain) || getChain(demo?.chainId || 'ethereum');
+  const report: AuditReport | null = demo ? demo.report : null;
+  const chainInfo = getChain(chain) || (demo ? getChain(demo.chainId) : undefined) || { iconUrl: '' };
 
   const handleVulnSelect = useCallback((vuln: Vulnerability) => {
     setSelectedVuln((prev) => (prev?.id === vuln.id ? null : vuln));
@@ -100,7 +99,7 @@ export default function AuditReportPage() {
         contractAddress={report.contractAddress}
         chainName={report.chainName}
         chainType={report.chainType}
-        chainIconUrl={chainInfo?.iconUrl || ''}
+        chainIconUrl={chainInfo.iconUrl}
         analysisTimeMs={report.analysisTimeMs}
         vulnerabilityCount={report.vulnerabilities.length}
       />
