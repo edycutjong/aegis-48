@@ -34,7 +34,7 @@ export default function AuditReportPage() {
     setTimeout(() => {
       setMintStatus('success');
     }, 2500);
-  }, [mintStatus]);
+  }, []);
 
   // Look up the demo contract
   const demo = getDemoContract(address);
