@@ -13,7 +13,7 @@ describe('ExampleChip', () => {
         label="Test Chip"
         address="0x123"
         chainId="ethereum"
-        chainType="evm"
+        status="safe"
         onClick={onClick}
       />
     );
@@ -31,7 +31,6 @@ describe('ExampleChip', () => {
         label="Test Safe Chip"
         address="0x123"
         chainId="ethereum"
-        chainType="evm"
         status="safe"
         onClick={jest.fn()}
       />
@@ -45,7 +44,6 @@ describe('ExampleChip', () => {
         label="Test Vuln Chip"
         address="0x123"
         chainId="ethereum"
-        chainType="evm"
         status="vuln"
         onClick={jest.fn()}
       />
