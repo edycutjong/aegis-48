@@ -64,25 +64,31 @@ export function ScanAnimation({ chainName, address, onComplete }: ScanAnimationP
         {/* Pulsing Backlight */}
         <motion.div 
           className="absolute inset-0 bg-primary/20 rounded-full blur-2xl"
-          animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ 
+            scale: currentStage < STAGES.length ? [1, 1.5, 1] : 1, 
+            opacity: currentStage < STAGES.length ? [0.5, 1, 0.5] : 0
+          }}
+          transition={{ duration: 2, repeat: currentStage < STAGES.length ? Infinity : 0, ease: "easeInOut" }}
         />
         
         {/* Sonar Rings in Framer Motion */}
-        {[0, 1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute inset-0 rounded-full border border-ai/50 pointer-events-none"
-            initial={{ scale: 0.5, opacity: 0.8 }}
-            animate={{ scale: 2.5, opacity: 0 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeOut",
-              delay: i * 0.5
-            }}
-          />
-        ))}
+        <AnimatePresence>
+          {currentStage < STAGES.length && [0, 1, 2, 3].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0 rounded-full border border-ai/50 pointer-events-none"
+              initial={{ scale: 0.5, opacity: 0.8 }}
+              animate={{ scale: 2.5, opacity: 0 }}
+              exit={{ opacity: 0, scale: 3, transition: { duration: 0.5 } }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: i * 0.5
+              }}
+            />
+          ))}
+        </AnimatePresence>
 
         {/* The Shield Core */}
         <div className="relative z-10 w-20 h-20 rounded-full bg-surface border border-ai flex items-center justify-center shadow-[0_0_30px_rgba(0,200,255,0.5)] overflow-hidden">
