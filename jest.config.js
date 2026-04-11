@@ -12,8 +12,9 @@ const customJestConfig = {
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   collectCoverageFrom: [
-    'src/lib/analyzer.ts',
-    'src/app/api/audit/route.ts',
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/types/**',
   ],
 };
 
