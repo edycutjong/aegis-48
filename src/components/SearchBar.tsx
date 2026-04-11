@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Search, Shield, ChevronDown } from 'lucide-react';
 import { CHAINS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -8,21 +8,39 @@ import { cn } from '@/lib/utils';
 interface SearchBarProps {
   onSubmit: (address: string, chainId: string) => void;
   isLoading?: boolean;
+  initialAddress?: string;
+  initialChainId?: string;
 }
 
-export function SearchBar({ onSubmit, isLoading }: SearchBarProps) {
-  const [address, setAddress] = useState('');
-  const [chainId, setChainId] = useState('ethereum');
+export function SearchBar({ onSubmit, isLoading, initialAddress = '', initialChainId = 'ethereum' }: SearchBarProps) {
+  const [address, setAddress] = useState(initialAddress);
+  const [chainId, setChainId] = useState(initialChainId);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (initialAddress) setAddress(initialAddress);
+    if (initialChainId) setChainId(initialChainId);
+  }, [initialAddress, initialChainId]);
 
   const selectedChain = CHAINS.find((c) => c.id === chainId) || CHAINS[0];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!address.trim() || isLoading) return;
-    onSubmit(address.trim(), chainId);
+
+    // Basic heuristic validation for EVM (0x + 40 chars), SVM (Base58 ~32-44 chars), Move (0x + 64 chars)
+    // Blocks completely malformed inputs gracefully.
+    const trimmed = address.trim();
+    if (trimmed.length < 32 || trimmed.length > 66 || trimmed.includes(' ')) {
+      setError('Please enter a valid wallet or contract address.');
+      return;
+    }
+    
+    setError('');
+    onSubmit(trimmed, chainId);
   };
 
   return (
@@ -46,7 +64,7 @@ export function SearchBar({ onSubmit, isLoading }: SearchBarProps) {
               'border-r border-border/50 min-w-[140px]'
             )}
           >
-            <span className="text-lg">{selectedChain.iconEmoji}</span>
+            {selectedChain.iconUrl ? <img src={selectedChain.iconUrl} alt={selectedChain.name} className="w-5 h-5 pointer-events-none rounded-full" /> : <span className="text-lg">🔗</span>}
             <span className="text-sm font-medium">{selectedChain.name}</span>
             <ChevronDown className="w-3.5 h-3.5 ml-auto" />
           </button>
@@ -67,7 +85,7 @@ export function SearchBar({ onSubmit, isLoading }: SearchBarProps) {
                     chain.id === chainId && 'bg-primary/10 text-primary'
                   )}
                 >
-                  <span className="text-lg">{chain.iconEmoji}</span>
+                  {chain.iconUrl ? <img src={chain.iconUrl} alt={chain.name} className="w-5 h-5 pointer-events-none rounded-full" /> : <span className="text-lg">🔗</span>}
                   <div>
                     <div className="font-medium text-text-primary">{chain.name}</div>
                     <div className="text-xs text-text-muted uppercase tracking-wider">
@@ -85,7 +103,10 @@ export function SearchBar({ onSubmit, isLoading }: SearchBarProps) {
           ref={inputRef}
           type="text"
           value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={(e) => {
+            setAddress(e.target.value);
+            if (error) setError('');
+          }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Paste any contract address..."
@@ -121,6 +142,13 @@ export function SearchBar({ onSubmit, isLoading }: SearchBarProps) {
 
       {/* Glow Line */}
       <div className={cn('glow-line mt-1 rounded-full transition-opacity', isFocused ? 'opacity-100' : 'opacity-40')} />
+      
+      {/* Error Message */}
+      {error && (
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-full text-center text-xs text-red-400 font-medium tracking-wide">
+          {error}
+        </div>
+      )}
     </form>
   );
 }
