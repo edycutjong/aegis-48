@@ -36,4 +36,11 @@ describe('ScanAnimation', () => {
 
     expect(onComplete).toHaveBeenCalledTimes(1);
   });
+
+  it('renders short addresses without truncation', () => {
+    const { getByText } = render(
+      <ScanAnimation chainName="Ethereum" address="0x123" />
+    );
+    expect(getByText('0x123')).toBeInTheDocument();
+  });
 });
