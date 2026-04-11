@@ -24,7 +24,15 @@ jest.mock('openai', () => {
 import { createPublicClient } from 'viem';
 import OpenAI from 'openai';
 
-  describe('analyzeContract', () => {
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  (console.error as jest.Mock).mockRestore();
+});
+
+describe('analyzeContract', () => {
     let mockGetBytecode: jest.Mock;
 
     beforeEach(() => {
