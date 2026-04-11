@@ -62,7 +62,7 @@ export async function analyzeContract(
       throw new Error('No bytecode found at address');
     }
 
-    const completion = await openai.beta.chat.completions.parse({
+    const completion = await (openai as any).beta.chat.completions.parse({
       model: 'gpt-4o',
       messages: [
         {

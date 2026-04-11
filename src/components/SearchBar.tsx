@@ -20,10 +20,6 @@ export function SearchBar({ onSubmit, isLoading, initialAddress = '', initialCha
   const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (initialAddress) setAddress(initialAddress);
-    if (initialChainId) setChainId(initialChainId);
-  }, [initialAddress, initialChainId]);
 
   const selectedChain = CHAINS.find((c) => c.id === chainId) || CHAINS[0];
 

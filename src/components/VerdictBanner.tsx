@@ -42,7 +42,8 @@ export function VerdictBanner({
       : 'flash-medium';
 
   useEffect(() => {
-    setHasFlashed(true);
+    const frame = requestAnimationFrame(() => setHasFlashed(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const handleCopy = () => {

@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Script from 'next/script';
+
 export default function RootLayout({
   children,
 }: {
@@ -21,7 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="min-h-screen antialiased">
-        <script type="module" src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js"></script>
+        <Script 
+          src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" 
+          strategy="afterInteractive" 
+          type="module" 
+        />
         <div className="scan-lines" />
         {children}
       </body>

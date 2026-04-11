@@ -85,7 +85,10 @@ function HomeContent() {
 
   useEffect(() => {
     if (demoContract && scanParam && state === 'idle') {
-      handleSubmit(demoContract.address, demoContract.chainId);
+      const frame = requestAnimationFrame(() => {
+        handleSubmit(demoContract.address, demoContract.chainId);
+      });
+      return () => cancelAnimationFrame(frame);
     }
   }, [demoContract, scanParam, state, handleSubmit]);
 

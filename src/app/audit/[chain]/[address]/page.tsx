@@ -42,6 +42,10 @@ export default function AuditReportPage() {
   const report: AuditReport | null = demo?.report || null;
   const chainInfo = getChain(chain) || getChain(demo?.chainId || 'ethereum');
 
+  const handleVulnSelect = useCallback((vuln: Vulnerability) => {
+    setSelectedVuln((prev) => (prev?.id === vuln.id ? null : vuln));
+  }, []);
+
   if (!report) {
     return (
       <main className="min-h-screen flex items-center justify-center p-6">
@@ -70,11 +74,6 @@ export default function AuditReportPage() {
       </main>
     );
   }
-
-  const handleVulnSelect = useCallback((vuln: Vulnerability) => {
-    setSelectedVuln((prev) => (prev?.id === vuln.id ? null : vuln));
-  }, []);
-
   return (
     <main className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto space-y-6">
       {/* Navigation */}
