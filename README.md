@@ -84,6 +84,7 @@ No existing tool audits across all chains. Until now.
 | AI          | OpenAI GPT-4o (Structured Outputs)  |
 | Icons       | Lucide React                        |
 | Language    | TypeScript 5                        |
+| Testing     | Jest + ts-jest (100% Backend Auth)  |
 
 ---
 
@@ -102,15 +103,30 @@ cd aegis-48
 npm install
 ```
 
+### Environment Variables
+
+To use the real EVM AI security engine, rename `.env.example` to `.env` and configure:
+
+```bash
+OPENAI_API_KEY=your_openai_key
+ALCHEMY_API_KEY=your_alchemy_key  # Optional, fallback available
+```
+
 ### Run Development Server
 
 ```bash
 npm run dev
 ```
 
+### Run Tests (100% Backend Coverage)
+
+```bash
+npm run test:coverage
+```
+
 Open [http://localhost:3000](http://localhost:3000) to see the security oracle.
 
-> **Note:** The app runs fully in demo mode without any environment variables. Three pre-loaded example contracts (🔴 Vulnerable EVM, 🟢 Safe Solana, ⚠️ Warning Move) demonstrate the full audit flow.
+> **Note (Hybrid Prod Engine):** The engine operates as a hybrid. For presentation safety, 6 pre-loaded demo contracts return instant reports. Any unknown Ethereum/EVM contract will hit real RPC nodes via Viem to fetch bytecode and analyze it using OpenAI. Solana and Aptos inputs use a deterministic mock fallback.
 
 ---
 
@@ -133,9 +149,14 @@ aegis-48/
 │   ├── data/
 │   │   └── demo-contracts.ts # Pre-loaded demo addresses
 │   └── lib/
+│       ├── analyzer.ts      # Hybrid Viem+OpenAI engine & mocks
+│       ├── analyzer.test.ts # 100% coverage unit tests
+│       ├── schema.ts        # Zod structures for OpenAI definitions
 │       ├── constants.ts     # Chain configs + mock stats
 │       └── utils.ts         # Utility functions (cn, etc.)
 ├── package.json
+├── jest.config.js
+├── jest.setup.ts
 ├── tsconfig.json
 └── next.config.ts
 ```
