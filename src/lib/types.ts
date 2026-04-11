@@ -64,7 +64,7 @@ export interface DemoContract {
   address: string;
   chainId: string;
   label: string;
-  emoji: string;
+  status: 'safe' | 'vuln';
   report: AuditReport;
 }
 
