@@ -15,7 +15,7 @@ interface VerdictBannerProps {
   contractAddress: string;
   chainName: string;
   chainType: ChainType;
-  chainEmoji: string;
+  chainIconUrl: string;
   analysisTimeMs: number;
   vulnerabilityCount: number;
 }
@@ -26,7 +26,7 @@ export function VerdictBanner({
   contractAddress,
   chainName,
   chainType,
-  chainEmoji,
+  chainIconUrl,
   analysisTimeMs,
   vulnerabilityCount,
 }: VerdictBannerProps) {
@@ -89,7 +89,7 @@ export function VerdictBanner({
 
           {/* Contract Info */}
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <ChainBadge name={chainName} emoji={chainEmoji} chainType={chainType} />
+            <ChainBadge name={chainName} iconUrl={chainIconUrl} chainType={chainType} />
             <span className="font-mono text-text-secondary">
               {truncateAddress(contractAddress)}
             </span>
@@ -122,7 +122,7 @@ export function VerdictBanner({
         </div>
 
         {/* Right: Threat Gauge */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <ThreatGauge score={threatScore} severity={severity} />
         </div>
       </div>

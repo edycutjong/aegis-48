@@ -16,7 +16,7 @@ export interface Chain {
   chainType: ChainType;
   rpcUrl: string;
   explorerUrl: string;
-  iconEmoji: string;
+  iconUrl: string;
   isTestnet: boolean;
 }
 

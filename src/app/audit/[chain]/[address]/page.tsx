@@ -4,6 +4,14 @@ import { useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Shield } from 'lucide-react';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'dotlottie-wc': any;
+    }
+  }
+}
 import { VerdictBanner } from '@/components/VerdictBanner';
 import { VulnerabilityCard } from '@/components/VulnerabilityCard';
 import { CodeViewer } from '@/components/CodeViewer';
@@ -26,8 +34,16 @@ export default function AuditReportPage() {
   if (!report) {
     return (
       <main className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center space-y-4">
-          <Shield className="w-12 h-12 text-text-muted mx-auto" />
+        <div className="text-center space-y-4 relative flex flex-col items-center">
+          <div className="w-24 h-24 opacity-60">
+            <dotlottie-wc 
+              src="https://lottie.host/4db68bbd-31f6-4cd8-84eb-189de081159a/IGmMCqhzpt.lottie" 
+              autoplay 
+              loop 
+              speed="0.5"
+              style={{ width: '100%', height: '100%' }}>
+            </dotlottie-wc>
+          </div>
           <h1 className="text-2xl font-bold text-text-primary">Audit Not Found</h1>
           <p className="text-text-secondary">
             No cached audit found for this address.
@@ -74,7 +90,7 @@ export default function AuditReportPage() {
         contractAddress={report.contractAddress}
         chainName={report.chainName}
         chainType={report.chainType}
-        chainEmoji={chainInfo?.iconEmoji || '🔗'}
+        chainIconUrl={chainInfo?.iconUrl || ''}
         analysisTimeMs={report.analysisTimeMs}
         vulnerabilityCount={report.vulnerabilities.length}
       />

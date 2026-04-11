@@ -11,7 +11,7 @@ export const CHAINS: Chain[] = [
     chainType: 'evm',
     rpcUrl: 'https://eth.public-rpc.com',
     explorerUrl: 'https://etherscan.io',
-    iconEmoji: '⟠',
+    iconUrl: '/icons/ethereum.svg',
     isTestnet: false,
   },
   {
@@ -20,7 +20,7 @@ export const CHAINS: Chain[] = [
     chainType: 'evm',
     rpcUrl: 'https://arb1.arbitrum.io/rpc',
     explorerUrl: 'https://arbiscan.io',
-    iconEmoji: '🔵',
+    iconUrl: '/icons/arbitrum.svg',
     isTestnet: false,
   },
   {
@@ -29,7 +29,7 @@ export const CHAINS: Chain[] = [
     chainType: 'evm',
     rpcUrl: 'https://polygon-rpc.com',
     explorerUrl: 'https://polygonscan.com',
-    iconEmoji: '🟣',
+    iconUrl: '/icons/polygon.svg',
     isTestnet: false,
   },
   {
@@ -38,7 +38,7 @@ export const CHAINS: Chain[] = [
     chainType: 'evm',
     rpcUrl: 'https://mainnet.base.org',
     explorerUrl: 'https://basescan.org',
-    iconEmoji: '🔷',
+    iconUrl: '/icons/base.svg',
     isTestnet: false,
   },
   {
@@ -47,7 +47,7 @@ export const CHAINS: Chain[] = [
     chainType: 'svm',
     rpcUrl: 'https://api.mainnet-beta.solana.com',
     explorerUrl: 'https://solscan.io',
-    iconEmoji: '◎',
+    iconUrl: '/icons/solana.svg',
     isTestnet: false,
   },
   {
@@ -56,7 +56,7 @@ export const CHAINS: Chain[] = [
     chainType: 'move',
     rpcUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
     explorerUrl: 'https://explorer.aptoslabs.com',
-    iconEmoji: '🅰️',
+    iconUrl: '/icons/aptos.svg',
     isTestnet: false,
   },
 ];
@@ -120,5 +120,5 @@ export const MOCK_STATS = {
   totalAudits: 2847,
   criticalFindings: 423,
   safeContracts: 1892,
-  chainsCovered: 12,
+  chainsCovered: 48,
 };

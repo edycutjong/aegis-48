@@ -3,12 +3,12 @@ import type { ChainType } from '@/lib/types';
 
 interface ChainBadgeProps {
   name: string;
-  emoji: string;
+  iconUrl: string;
   chainType: ChainType;
   className?: string;
 }
 
-export function ChainBadge({ name, emoji, chainType, className }: ChainBadgeProps) {
+export function ChainBadge({ name, iconUrl, chainType, className }: ChainBadgeProps) {
   return (
     <span
       className={cn(
@@ -17,7 +17,7 @@ export function ChainBadge({ name, emoji, chainType, className }: ChainBadgeProp
         className
       )}
     >
-      <span>{emoji}</span>
+      {iconUrl ? <img src={iconUrl} alt={name} className="w-3.5 h-3.5" /> : <span>🔗</span>}
       <span>{name}</span>
       <span className="text-text-muted uppercase text-[10px] tracking-wider">
         {chainType}
