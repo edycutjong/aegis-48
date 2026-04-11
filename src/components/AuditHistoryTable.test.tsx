@@ -8,7 +8,15 @@ import { DEMO_CONTRACTS } from '@/data/demo-contracts';
 
 describe('AuditHistoryTable', () => {
   it('renders a list of audits', () => {
-    const audits = [DEMO_CONTRACTS[0].report, DEMO_CONTRACTS[1].report];
+    const mediumAudit = {
+      ...DEMO_CONTRACTS[0].report,
+      id: 'medium-1',
+      contractAddress: '0xMediumAddress123',
+      threatScore: 50,
+      severity: 'MEDIUM' as const,
+      chainId: 'unknown-chain'
+    };
+    const audits = [DEMO_CONTRACTS[0].report, DEMO_CONTRACTS[1].report, mediumAudit];
     const { getByText } = render(<AuditHistoryTable audits={audits} />);
 
     // Renders table headers

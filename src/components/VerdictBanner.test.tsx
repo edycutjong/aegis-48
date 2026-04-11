@@ -60,11 +60,29 @@ describe('VerdictBanner', () => {
         chainType="evm"
         chainIconUrl=""
         analysisTimeMs={1500}
-        vulnerabilityCount={0}
+        vulnerabilityCount={1}
       />
     );
 
     expect(getByText('SAFE')).toBeInTheDocument();
-    expect(queryByText(/finding/i)).toBeNull();
+    expect(getByText('1 finding')).toBeInTheDocument();
+  });
+
+  it('renders MEDIUM verdict', () => {
+    const { getByText } = render(
+      <VerdictBanner
+        severity="MEDIUM"
+        threatScore={50}
+        contractAddress="0x12345"
+        chainName="Ethereum"
+        chainType="evm"
+        chainIconUrl=""
+        analysisTimeMs={1500}
+        vulnerabilityCount={2}
+      />
+    );
+
+    expect(getByText('MEDIUM')).toBeInTheDocument();
+    expect(getByText('2 findings')).toBeInTheDocument();
   });
 });

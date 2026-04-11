@@ -65,7 +65,7 @@ export function AuditHistoryTable({ audits }: AuditHistoryTableProps) {
                 </td>
                 <td className="px-4 py-3">
                   <span className="flex items-center gap-1.5 text-sm text-text-secondary">
-                    {chain?.iconUrl ? <img src={chain.iconUrl} alt={chain?.name || 'Chain'} className="w-4 h-4 inline-block align-middle mx-auto" /> : <span>🔗</span>}
+                    {chain?.iconUrl ? <img src={chain.iconUrl} alt={chain.name} className="w-4 h-4 inline-block align-middle mx-auto" /> : <span>🔗</span>}
                     <span>{audit.chainName}</span>
                   </span>
                 </td>

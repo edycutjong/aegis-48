@@ -73,4 +73,17 @@ describe('SearchBar', () => {
     fireEvent.focus(input);
     fireEvent.blur(input);
   });
+
+  it('renders loading state and prevents submission', () => {
+    const onSubmit = jest.fn();
+    const { getByRole } = render(
+      <SearchBar onSubmit={onSubmit} isLoading={true} initialAddress="0x1234567890123456789012345678901234567890" initialChainId="invalid-chain" />
+    );
+    const submitButton = getByRole('button', { name: /scan/i }) as HTMLButtonElement;
+    expect(submitButton.disabled).toBe(true);
+    
+    // Attempt form submit
+    fireEvent.submit(submitButton.closest('form')!);
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
 });
