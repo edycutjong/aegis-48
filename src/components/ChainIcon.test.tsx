@@ -21,4 +21,10 @@ describe('ChainIcon', () => {
     const { getByText } = render(<ChainIcon name="Unknown" />);
     expect(getByText('UN')).toBeInTheDocument();
   });
+
+  it('renders fallback if icon exists in the map but returns undefined from the library', () => {
+    // Solana is in ICON_MAP but we didn't mock it, so Web3Icons['NetworkSolana'] is undefined
+    const { getByText } = render(<ChainIcon name="Solana" />);
+    expect(getByText('SO')).toBeInTheDocument();
+  });
 });
