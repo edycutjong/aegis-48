@@ -6,7 +6,7 @@ import { truncateAddress, formatDuration } from '@/lib/utils';
 import { SEVERITY_CONFIG } from '@/lib/constants';
 import { ThreatGauge } from './ThreatGauge';
 import { ChainBadge } from './ChainBadge';
-import { Share2, Copy, Check } from 'lucide-react';
+import { Share2, Copy, Check, Skull, Flame, AlertTriangle, Info, ShieldCheck } from 'lucide-react';
 import type { Severity, ChainType } from '@/lib/types';
 
 interface VerdictBannerProps {
@@ -51,6 +51,14 @@ export function VerdictBanner({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const IconComponent = {
+    CRITICAL: Skull,
+    HIGH: Flame,
+    MEDIUM: AlertTriangle,
+    LOW: Info,
+    SAFE: ShieldCheck,
+  }[severity];
+
   return (
     <div
       className={cn(
@@ -78,7 +86,9 @@ export function VerdictBanner({
         <div className="flex-1 space-y-3">
           {/* Verdict Label */}
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{config.icon}</span>
+            <span className="text-4xl" style={{ color: config.color }}>
+              <IconComponent className="w-10 h-10" />
+            </span>
             <h1
               className="text-5xl md:text-6xl font-black tracking-tight"
               style={{ color: config.color }}

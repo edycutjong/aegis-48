@@ -100,6 +100,7 @@ export function SearchBar({ onSubmit, isLoading, initialAddress = '', initialCha
 
         {/* Address Input */}
         <input
+          suppressHydrationWarning
           ref={inputRef}
           type="text"
           value={address}

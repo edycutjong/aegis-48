@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Shield } from 'lucide-react';
+import { Shield, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -33,12 +33,12 @@ export function ScanAnimation({ chainName, address, onComplete }: ScanAnimationP
   );
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    const timeouts: NodeJS.Timeout[] = [];
     let totalDelay = 0;
 
     STAGES.forEach((stage, i) => {
       totalDelay += stage.duration;
-      timeout = setTimeout(() => {
+      const timeout = setTimeout(() => {
         setStagesComplete((prev) => {
           const next = [...prev];
           next[i] = true;
@@ -47,12 +47,14 @@ export function ScanAnimation({ chainName, address, onComplete }: ScanAnimationP
         setCurrentStage(i + 1);
 
         if (i === STAGES.length - 1 && onComplete) {
-          setTimeout(onComplete, 800); // 800ms to allow final animations
+          const completionTimeout = setTimeout(onComplete, 800); // 800ms to allow final animations
+          timeouts.push(completionTimeout);
         }
       }, totalDelay);
+      timeouts.push(timeout);
     });
 
-    return () => clearTimeout(timeout);
+    return () => timeouts.forEach(clearTimeout);
   }, [onComplete]);
 
   return (
@@ -136,9 +138,9 @@ export function ScanAnimation({ chainName, address, onComplete }: ScanAnimationP
                       initial={{ scale: 0 }} 
                       animate={{ scale: 1 }} 
                       transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                      className="text-lg"
+                      className="text-safe flex items-center justify-center"
                     >
-                      ✓
+                      <Check className="w-5 h-5" />
                     </motion.span>
                   ) : isCurrent ? (
                     <motion.span 

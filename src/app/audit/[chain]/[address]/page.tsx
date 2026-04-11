@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Shield } from 'lucide-react';
+import { ArrowLeft, Shield, ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 
 declare global {
   namespace JSX {
@@ -25,6 +25,17 @@ export default function AuditReportPage() {
   const chain = params.chain as string;
   const address = decodeURIComponent(params.address as string);
   const [selectedVuln, setSelectedVuln] = useState<Vulnerability | null>(null);
+  const [mintStatus, setMintStatus] = useState<'idle' | 'minting' | 'success'>('idle');
+
+  const handleMint = useCallback(() => {
+    if (mintStatus !== 'idle') return;
+    setMintStatus('minting');
+    
+    // Mock a blockchain transaction delay
+    setTimeout(() => {
+      setMintStatus('success');
+    }, 2500);
+  }, [mintStatus]);
 
   // Look up the demo contract
   const demo = getDemoContract(address);
@@ -154,7 +165,7 @@ export default function AuditReportPage() {
           <div className="flex items-center justify-center py-8">
             <div className="text-center space-y-3">
               <div className="w-16 h-16 mx-auto rounded-full bg-safe/10 flex items-center justify-center">
-                <span className="text-3xl">✅</span>
+                <ShieldCheck className="w-8 h-8 text-safe" />
               </div>
               <h2 className="text-xl font-bold text-safe">No Vulnerabilities Detected</h2>
               <p className="text-sm text-text-secondary max-w-md">
@@ -165,14 +176,34 @@ export default function AuditReportPage() {
 
               {/* Mint CTA */}
               <button
+                onClick={handleMint}
+                disabled={mintStatus !== 'idle'}
                 className={cn(
                   'inline-flex items-center gap-2 px-6 py-3 mt-4 rounded-xl',
-                  'bg-primary hover:bg-primary-glow text-white font-semibold',
-                  'transition-all duration-200 glow-primary'
+                  mintStatus === 'success'
+                    ? 'bg-safe text-[#002b16] font-bold shadow-[0_0_20px_rgba(0,230,118,0.3)]'
+                    : 'bg-primary hover:bg-primary-glow text-white glow-primary',
+                  'font-semibold transition-all duration-300 disabled:opacity-90 disabled:cursor-not-allowed'
                 )}
               >
-                <span>✨</span>
-                Mint Aegis Verified Credential
+                {mintStatus === 'idle' && (
+                  <>
+                    <Sparkles className="w-5 h-5" />
+                    Mint Aegis Verified Credential
+                  </>
+                )}
+                {mintStatus === 'minting' && (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Confirming Transaction...
+                  </>
+                )}
+                {mintStatus === 'success' && (
+                  <>
+                    <ShieldCheck className="w-5 h-5" />
+                    Credential Successfully Minted
+                  </>
+                )}
               </button>
             </div>
           </div>

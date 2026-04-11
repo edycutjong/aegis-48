@@ -39,20 +39,20 @@ export function ChainGridModal({ isOpen, onClose }: ChainGridModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-100"
           />
 
           {/* Modal Container */}
-          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+          <div className="fixed inset-0 z-101 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="w-full max-w-5xl max-h-[85vh] bg-[#0a0a0b]/90 backdrop-blur-2xl border border-white/10 rounded-3xl flex flex-col shadow-2xl pointer-events-auto overflow-hidden"
+              className="w-full max-w-5xl max-h-[85vh] bg-bg/90 backdrop-blur-2xl border border-white/10 rounded-3xl flex flex-col shadow-2xl pointer-events-auto overflow-hidden"
             >
               {/* Header */}
-              <div className="flex flex-shrink-0 items-center justify-between p-6 border-b border-white/5">
+              <div className="flex shrink-0 items-center justify-between p-6 border-b border-white/5">
                 <div>
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
                     <span className="text-primary">48</span> Supported Networks
@@ -84,7 +84,7 @@ export function ChainGridModal({ isOpen, onClose }: ChainGridModalProps) {
                   
                   {/* Simulated remaining 42 chains */}
                   {EXTRA_CHAINS.map((name, i) => (
-                    <div key={name} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/20 transition-all cursor-default group">
+                    <div key={name} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/20 transition-all cursor-default group">
                       <ChainIcon name={name} className="w-7 h-7 drop-shadow-md opacity-80 group-hover:opacity-100 transition-opacity" />
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-medium text-zinc-300 truncate">{name}</div>
@@ -96,7 +96,7 @@ export function ChainGridModal({ isOpen, onClose }: ChainGridModalProps) {
               </div>
               
               {/* Footer Gradient Fade */}
-              <div className="h-6 flex-shrink-0 bg-gradient-to-t from-[#0a0a0b] to-transparent pointer-events-none mt-[-24px] z-10" />
+              <div className="h-6 shrink-0 bg-linear-to-t from-bg to-transparent pointer-events-none mt-[-24px] z-10" />
             </motion.div>
           </div>
         </>

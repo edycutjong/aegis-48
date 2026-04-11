@@ -11,12 +11,12 @@ import { ChainIcon } from '@/components/ChainIcon';
 import { DEMO_CONTRACTS, getDemoContract } from '@/data/demo-contracts';
 import { CHAINS, MOCK_STATS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 type AppState = 'idle' | 'scanning';
 
 // Animation variants for staggering children
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -27,7 +27,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
   visible: { 
     opacity: 1, 
@@ -152,7 +152,7 @@ function HomeContent() {
 
             {/* Title */}
             <motion.div variants={itemVariants} className="space-y-3">
-              <h1 className="text-5xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40">
+              <h1 className="text-5xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-linear-to-br from-white to-white/40">
                 AEGIS-48
               </h1>
               <p className="text-lg text-primary font-mono tracking-widest uppercase">
@@ -178,7 +178,7 @@ function HomeContent() {
               {DEMO_CONTRACTS.map((demo) => (
                 <ExampleChip
                   key={demo.address}
-                  emoji={demo.emoji}
+                  status={demo.status}
                   label={demo.label}
                   address={demo.address}
                   chainId={demo.chainId}
