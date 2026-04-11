@@ -69,34 +69,13 @@ No existing tool audits across all chains. Until now.
 - **Audit history dashboard** — track all past audits with severity distribution
 - **NFT credentials** — mint "Aegis Verified" badges for safe contracts
 
----
+## 🏛️ System Architecture
 
-## 🏗️ Architecture
+<p align="center">
+  <img src="docs/architecture.jpeg" alt="Aegis-48 System Architecture" width="800" />
+</p>
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                   Next.js 16 App Router                  │
-├──────────────────┬──────────────────────────────────────┤
-│  Client          │  React 19 + Framer Motion            │
-│  ┌────────────┐  │  Search → Scan Animation → Verdict   │
-│  │ SearchBar  │→ │  → Vulnerability Cards → History     │
-│  └────────────┘  │                                      │
-├──────────────────┼──────────────────────────────────────┤
-│  API Routes      │  /api/audit — run AI security scan   │
-│                  │  /api/history — fetch past audits     │
-├──────────────────┼──────────────────────────────────────┤
-│  AI Engine       │  OpenAI GPT-4o Structured Outputs    │
-│                  │  6 vulnerability patterns per chain   │
-│                  │  18 total across EVM/SVM/Move         │
-├──────────────────┼──────────────────────────────────────┤
-│  Chain Adapters  │  EVM: viem (bytecode fetch)          │
-│                  │  SVM: @solana/web3.js                │
-│                  │  Move: Aptos REST API                │
-├──────────────────┼──────────────────────────────────────┤
-│  Data Layer      │  Supabase (audit cache + history)    │
-│                  │  Demo contracts for instant results   │
-└──────────────────┴──────────────────────────────────────┘
-```
+Aegis-48 follows a modular "Security Oracle" architecture syncing React frontend state with a constrained AI analysis engine.
 
 ---
 
