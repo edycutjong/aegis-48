@@ -18,6 +18,27 @@
   <img src="https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript" alt="Strict TypeScript" />
 </p>
 
+<table width="100%">
+  <tr>
+    <td width="50%" align="center">
+      <a href="https://youtu.be/TKYn6nX2Xdw">
+        <img src="https://img.youtube.com/vi/TKYn6nX2Xdw/maxresdefault.jpg" alt="Aegis-48 Main Demo" width="100%" />
+      </a>
+      <br />
+      <strong>🎬 Main Demo (1m 40s)</strong><br />
+      Full narrated walkthrough — EVM vulnerability detection, Solana safe audit, and NFT credential minting.
+    </td>
+    <td width="50%" align="center">
+      <a href="https://youtu.be/IFB-3_PfGO8">
+        <img src="https://img.youtube.com/vi/IFB-3_PfGO8/maxresdefault.jpg" alt="Aegis-48 UI Walkthrough" width="100%" />
+      </a>
+      <br />
+      <strong>🖱️ UI Walkthrough (B-Roll)</strong><br />
+      Organic developer experience — scanning contracts, reading verdicts, and browsing audit history.
+    </td>
+  </tr>
+</table>
+
 > Paste any contract address from any blockchain. Get an instant AI-powered security audit with vulnerability line references and severity scores.
 
 Aegis-48 is a cross-chain AI security oracle built for the **[48 Weeks. 48 Blockchains.](https://dorahacks.io/hackathon/codequity-x-blockchains)** hackathon by Codequity. It audits smart contracts across EVM, Solana (SVM), and Move chains using constrained AI analysis — delivering visual RED/GREEN verdicts with zero hallucination.
@@ -169,6 +190,31 @@ aegis-48/
 
 ---
 
+## 📸 Screenshots
+
+<table width="100%">
+  <tr>
+    <td width="50%">
+      <p align="center"><strong>Landing Page</strong></p>
+      <img src="docs/screenshots/01-Landing-Page.png" alt="Aegis-48 Landing Page" />
+    </td>
+    <td width="50%">
+      <p align="center"><strong>Vulnerable EVM Contract Report</strong></p>
+      <img src="docs/screenshots/02-Vulnerable-Report-EVM.png" alt="Vulnerable EVM Report" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <p align="center"><strong>Safe Solana Contract Report</strong></p>
+      <img src="docs/screenshots/03-Safe-Report-Solana.png" alt="Safe Solana Report" />
+    </td>
+    <td width="50%">
+      <p align="center"><strong>Audit History Dashboard</strong></p>
+      <img src="docs/screenshots/04-Audit-History.png" alt="Audit History Dashboard" />
+    </td>
+  </tr>
+</table>
+
 ## 🎨 Demo Flow
 
 1. **Landing** — Minimalist dark-mode hero with glassmorphism search bar and chain icons
@@ -201,13 +247,6 @@ Unlike typical hackathon prototypes built in a rush, **Aegis-48 is built with en
 - **Pristine Linting** (Zero ESLint warnings or errors).
 - **Robust Fallbacks** (Graceful degradation for API/RPC network failures fully covered by integration tests).
 
----
-
-## 📹 Demo
-
-> 🎥 [Watch Demo Video](#) | 🌐 [Live Demo](#)
-
----
 
 ## 📄 License
 

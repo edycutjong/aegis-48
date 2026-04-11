@@ -17,16 +17,18 @@ async function smoothScroll(page: Page, yOffset: number) {
 async function runDemo() {
   console.log('🚀 Starting Demo Recording Script...');
   
-  // Launch playwright browser (visible)
+  // Launch playwright browser (visible to user, but headless can be used too)
   const browser = await chromium.launch({
     headless: false,
     slowMo: 50, // Slight general slowdown for natural feel
   });
 
   const context = await browser.newContext({
-    viewport: { width: 1440, height: 900 },
-    // Optionally enable screen recording here later if DemoStudio doesn't do it externally
-    // recordVideo: { dir: 'recordings/', size: { width: 1440, height: 900 } }
+    viewport: { width: 1920, height: 1080 }, // YouTube 1080p Resolution
+    recordVideo: { 
+      dir: 'recordings/', 
+      size: { width: 1920, height: 1080 } 
+    }
   });
 
   const page = await context.newPage();
@@ -69,7 +71,7 @@ async function runDemo() {
   // "That's why we built Aegis-48. A single, cross-chain AI Security Oracle that handles the differing complexities of 48 ecosystems for you so you can focus on building."
   await waitTo(14);
   console.log(`[${getT()}s] Navigated to search bar`);
-  await page.locator('input[placeholder*="Paste contract address"]').click();
+  await page.locator('input[placeholder*="contract address"]').click();
   await page.waitForTimeout(3000);
   // User changes their mind, decides to click an example instead
   await page.locator('body').click(); // defocus
@@ -94,7 +96,7 @@ async function runDemo() {
   await waitTo(48);
   console.log(`[${getT()}s] Clicking Reentrancy card...`);
   // Click the Vulnerability card to show the code mapping
-  await page.locator('button', { hasText: 'Reentrancy in withdraw()' }).click();
+  await page.locator('text=Reentrancy Attack').first().click();
   await smoothScroll(page, 150);
 
   // [0:56 - 1:05]
@@ -136,6 +138,17 @@ async function runDemo() {
   await waitTo(100);
   
   console.log('✅ Demo sequence complete. Closing browser...');
+  await page.close(); // Need to close page first to make sure video is fully written
+  await context.close();
+  
+  // Rename the output video file
+  const videoPath = await page.video()?.path();
+  if (videoPath) {
+    const finalPath = path.join(path.dirname(videoPath), 'Aegis48-YouTube-Demo.webm');
+    require('fs').renameSync(videoPath, finalPath);
+    console.log(`🎬 YouTube Demo recorded at: ${finalPath}`);
+  }
+
   await browser.close();
   
   // If AFPLAY is still running (it shouldn't be, since audio is exactly 100s), kill it
